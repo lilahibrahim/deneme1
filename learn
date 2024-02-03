@@ -1,0 +1,33 @@
+from PIL import Image, ImageDraw, ImageFont
+
+def mesaj_gorsel_yap(mesaj):
+    # Arka plan rengi ve boyutu
+    arkaplan_rengi = "white"
+    genislik = 300
+    yukseklik = 100
+
+    # Yeni bir görüntü oluştur
+    image = Image.new("RGB", (genislik, yukseklik), arkaplan_rengi)
+    
+    # Bir çizim nesnesi oluştur
+    draw = ImageDraw.Draw(image)
+
+    # Kullanılacak fontu seç
+    font = ImageFont.load_default()
+
+    # Mesajı görsele ekle
+    text = mesaj
+    text_width, text_height = draw.textsize(text, font)
+    x = (genislik - text_width) / 2
+    y = (yukseklik - text_height) / 2
+    draw.text((x, y), text, font=font, fill="black")
+
+    # Görsele bir dosya adıyla kaydet
+    image.save("mesaj_gorseli.png")
+    print("Görüntü oluşturuldu: mesaj_gorseli.png")
+
+# Kullanıcıdan mesaj al
+kullanici_mesaji = input("Lütfen bir mesaj girin: ")
+
+# Mesajı kullanarak görsel oluştur
+mesaj_gorsel_yap(kullanici_mesaji)
